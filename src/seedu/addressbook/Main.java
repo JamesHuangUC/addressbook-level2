@@ -31,12 +31,13 @@ public class Main {
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
 
-    public static void main(String... launchArgs) {
+    public static void main(String... launchArgs) throws FileNotFoundException {
         new Main().run(launchArgs);
     }
 
     /** Runs the program until termination.  */
-    public void run(String[] launchArgs) {
+    /* @throws FileNotFoundException */
+    public void run(String[] launchArgs) throws FileNotFoundException{
         start(launchArgs);
         runCommandLoopUntilExitCommand();
         exit();
@@ -46,9 +47,9 @@ public class Main {
      * Sets up the required objects, loads up the data from the storage file, and prints the welcome message.
      *
      * @param launchArgs arguments supplied by the user at program launch
-     *
+     * @throws FileNotFoundException
      */
-    private void start(String[] launchArgs) {
+    private void start(String[] launchArgs) throws FileNotFoundException {
         try {
             this.ui = new TextUi();
             this.storage = initializeStorage(launchArgs);
