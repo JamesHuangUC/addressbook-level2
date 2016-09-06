@@ -38,13 +38,13 @@ public class Address {
         this.block = new Block(addrPart[blockInd]);
         this.street = new Street(addrPart[streetInd]);
         this.unit = new Unit(addrPart[unitInd]);
-        this.postalCode = new postalCode(addrPart[postalInd]);
+        this.postalCode = new PostalCode(addrPart[postalInd]);
     }
     
     public String getValue(){
     	return block.getValue()+addrSplit
     			+ street.getValue()+addrSplit
-    			+ unit.getValue()+addSplit
+    			+ unit.getValue()+addrSplit
     			+ postalCode.getValue();
     }
 
