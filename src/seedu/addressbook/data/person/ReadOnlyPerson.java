@@ -38,25 +38,10 @@ public interface ReadOnlyPerson {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" Phone: ");
-        if (getPhone().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getPhone())
-                .append(" Email: ");
-        if (getEmail().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getEmail())
-                .append(" Address: ");
-        if (getAddress().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getAddress())
-                .append(" Tags: ");
+        builder.append(getPrintableString(getName(), getPhone(), getEmail(), getAddress()));
+        builder.append(" Tags: ");
         for (Tag tag : getTags()) {
-            builder.append(tag);
+        builder.append(tag);
         }
         return builder.toString();
     }
@@ -68,13 +53,13 @@ public interface ReadOnlyPerson {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         if (!getPhone().isPrivate()) {
-            builder.append(" Phone: ").append(getPhone());
+            builder.append(" Phone: ").append(getPrintableString(getPhone()));
         }
         if (!getEmail().isPrivate()) {
-            builder.append(" Email: ").append(getEmail());
+            builder.append(" Email: ").append(getPrintableString(getEmail()));
         }
         if (!getAddress().isPrivate()) {
-            builder.append(" Address: ").append(getAddress());
+            builder.append(" Address: ").append(getPrintableString(getAddress()));
         }
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
@@ -82,4 +67,15 @@ public interface ReadOnlyPerson {
         }
         return builder.toString();
     }
+
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+       static String getPrintableString(Printable... printables){
+       final StringBuilder builder = new StringBuilder();
+       for (Printable p : printables){
+           builder.append(p.getPrintableString());
+       }
+       return builder.toString();
+   }
 }
